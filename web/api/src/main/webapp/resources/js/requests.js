@@ -1,21 +1,3 @@
-function login() {
-    var email = $('#inputEmail3').val();
-    var password = $('#inputPassword3').val();
-    var requestJSONparametr = "{\"email\": \"" + email + "\", \"password\": \"" + password + "\"}";
-    $.ajax({
-        type: "POST",
-        url: "/teacher/delete",
-        contentType: "application/json",
-        dataType: 'json',
-        data: requestJSONparametr,
-        success: function (data) {
-            alert("Преподаватель успешно удален!");
-        },
-        error: function (data) {
-            alert("Не удалось удалить преподавателя! Возможно, вы ввели неправильно имя либо ввели недопустимое значение имени");
-        }
-    });
-}
 
 var globalvar = '';
 $(document).ready(function() {

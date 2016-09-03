@@ -29,9 +29,9 @@ http://www.springframework.org/schema/task/spring-task-3.0.xsd">
         <beans:property name="dataSource" ref="dataSource" />
         <beans:property name="annotatedClasses">
             <beans:list>
-                <beans:value>ru.User</beans:value>
-                <beans:value>ru.Item</beans:value>
-                <beans:value>ru.Currency</beans:value>
+                <beans:value>ru.price.User</beans:value>
+                <beans:value>ru.price.Item</beans:value>
+                <beans:value>ru.price.Currency</beans:value>
                 <!--<beans:value>ru.university.entity.Group</beans:value>-->
                 <!--<beans:value>ru.university.entity.Teacher</beans:value>-->
                 <!--<beans:value>ru.university.entity.Estimate</beans:value>-->
