@@ -23,29 +23,27 @@ function addNewItem() {
     });
 }
 
+setInterval(updatePrice, 5000);
 
-var x = new XMLHttpRequest();
-x.open("GET", "/item/all", true);  //Указываем адрес GET-запроса
-x.onload = function (){ //Функция которая отправляет запрос на сервер для получения всех студентов
-    var parsedItem = JSON.parse(this.responseText); //указываем что
-    var studentTable = document.getElementById('all-items'); //получаем данные на странице по Id  - all-student
-    parsedItem.forEach(function(item)  { //запускаем цикл
-        var fullNameElement = document.createElement('td'); //создаем элемент td для таблицы
-        fullNameElement.innerHTML =  item['itemName'] ; //внедряем имя студента из БД
-        var estimateElement = document.createElement('td');
-        estimateElement.innerHTML = item['itemPrice'];//создаем элемент td для таблицы
-        var elementContainer = document.createElement('tr'); //создаем тег
-        elementContainer.appendChild(fullNameElement);
-        elementContainer.appendChild(estimateElement);
-        studentTable.appendChild(elementContainer);
-    });
-    //подключаем к таблице библиотеку для сортировки
-};
-x.send(null);
-
-
-setInterval(x, 50000);
-
+function updatePrice() {
+    var x = new XMLHttpRequest();
+    x.open("GET", "/item/all", true);  //Указываем адрес GET-запроса
+    x.onload = function (){ //Функция которая отправляет запрос на сервер для получения всех студентов
+        var parsedItem = JSON.parse(this.responseText); //указываем что
+        var studentTable = document.getElementById('all-items'); //получаем данные на странице по Id  - all-student
+        parsedItem.forEach(function(item)  { //запускаем цикл
+            var fullNameElement = document.createElement('td'); //создаем элемент td для таблицы
+            fullNameElement.innerHTML =  item['itemName'] ; //внедряем имя студента из БД
+            var estimateElement = document.createElement('td');
+            estimateElement.innerHTML = item['itemPrice'];//создаем элемент td для таблицы
+            var elementContainer = document.createElement('tr'); //создаем тег
+            elementContainer.appendChild(fullNameElement);
+            elementContainer.appendChild(estimateElement);
+            studentTable.appendChild(elementContainer);
+        });
+    };
+    x.send(null);
+}
 
 $(document).ready(function() {
     $('.dropdown-menu li a').click(function(){

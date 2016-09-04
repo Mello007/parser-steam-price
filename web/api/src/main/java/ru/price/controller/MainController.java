@@ -14,10 +14,8 @@ import java.util.List;
 @RequestMapping(value = "item")
 public class MainController {
 
-    @Autowired
-    PriceService priceService;
-    @Autowired
-    ItemService itemService;
+    @Autowired PriceService priceService;
+    @Autowired ItemService itemService;
 
     @RequestMapping(value = "add", method = RequestMethod.POST)
     public Item addItem(@RequestBody String itemInfo) throws Exception {
