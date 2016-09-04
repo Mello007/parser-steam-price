@@ -1,13 +1,13 @@
 
-var globalvar = '';
+var currency = '';
 $(document).ready(function() {
     $('.dropdown-menu-kind li a').click(function(){
-        globalvar = $(this).data('val');
+        currency = $(this).data('val');
     })
 });
 function addNewItem() {
     var name = $('#itemName').val();
-    var requestJSONparametr = "{\"itemName\": \"" + name + "\", \"itemKind\": \"" + globalvar + "\"}";
+    var requestJSONparametr = "{\"itemName\": \"" + name + "\", \"itemKind\": \"" + currency + "\"}";
     $.ajax({
         type: "POST",
         url: "/item/add",
@@ -23,26 +23,27 @@ function addNewItem() {
     });
 }
 
-setInterval(updatePrice, 5000);
 
 function updatePrice() {
-    var x = new XMLHttpRequest();
-    x.open("GET", "/item/all", true);  //Указываем адрес GET-запроса
-    x.onload = function (){ //Функция которая отправляет запрос на сервер для получения всех студентов
-        var parsedItem = JSON.parse(this.responseText); //указываем что
-        var studentTable = document.getElementById('all-items'); //получаем данные на странице по Id  - all-student
-        parsedItem.forEach(function(item)  { //запускаем цикл
-            var fullNameElement = document.createElement('td'); //создаем элемент td для таблицы
-            fullNameElement.innerHTML =  item['itemName'] ; //внедряем имя студента из БД
-            var estimateElement = document.createElement('td');
-            estimateElement.innerHTML = item['itemPrice'];//создаем элемент td для таблицы
-            var elementContainer = document.createElement('tr'); //создаем тег
-            elementContainer.appendChild(fullNameElement);
-            elementContainer.appendChild(estimateElement);
-            studentTable.appendChild(elementContainer);
+    var priceRequest = new XMLHttpRequest();
+    priceRequest.open("GET", "/item/all", true);   //Указываем адрес GET-запроса
+    priceRequest.onload = function (){             //Функция которая отправляет запрос на сервер для получения всех студентов
+        var parsedItem = JSON.parse(this.responseText);
+        var itemsTable = document.getElementById('all-items'); //получаем элемент по Id
+        itemsTable.innerHTML = '';      //очищаем таблицу от устаревших данных
+            parsedItem.forEach(function(item)  {
+            var itemNameElement = document.createElement('td'); //создаем элемент ячейку с названием для таблицы
+            itemNameElement.innerHTML =  item['itemName'] ;     //внедряем название предмета, полученное с сервера
+            var itemPriceElement = document.createElement('td');
+            itemPriceElement.innerHTML = item['itemPrice'];     //создаем элемент ячейку с ценой для таблицы
+
+            var elementRow = document.createElement('tr'); //создаем строку таблицы
+            elementRow.appendChild(itemNameElement);      //помещаем обе ячейки в строку
+            elementRow.appendChild(itemPriceElement);
+            itemsTable.appendChild(elementRow);           //помещаем строку в таблицу
         });
     };
-    x.send(null);
+    priceRequest.send(null);
 }
 
 $(document).ready(function() {
@@ -63,4 +64,6 @@ $(document).ready(function() {
             }
         });
     });
+    updatePrice();
+    setInterval(updatePrice,50000);
 });
