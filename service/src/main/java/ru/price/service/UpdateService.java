@@ -19,7 +19,7 @@ public class UpdateService {
     @Autowired SessionFactory sessionFactory;
 
     @Transactional
-    @Scheduled(fixedRate = 50000)
+    @Scheduled(fixedRate = 5000)
     public void getNewItemPrices() throws Exception{
         PriceService priceService = new PriceService();
         Query query = sessionFactory.openSession().createQuery("from Item");

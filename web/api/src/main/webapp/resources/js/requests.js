@@ -65,5 +65,5 @@ $(document).ready(function() {
         });
     });
     updatePrice();
-    setInterval(updatePrice,50000);
+    setInterval(updatePrice,5000);
 });
